@@ -22,10 +22,21 @@ public:
 		
 		//int i = 1;
 
-		maxsize = (right - left) * min(height[right], height[left]);
+		
 		while(left< right)
 		{
-            int t1 = (right - (left+1)) * min(height[right], height[left+1]);
+            maxsize =
+                max(maxsize, (right - left) * min(height[right], height[left]));
+			if (height[left] > height[right])
+			{
+                right--;
+
+			}
+			else
+			{
+                left++;
+			}
+           /* int t1 = (right - (left+1)) * min(height[right], height[left+1]);
 			if (t1 > maxsize)
 			{
                 maxsize = t1;
@@ -37,7 +48,7 @@ public:
                 maxsize = t2;
 			} 
 			left++;
-			right--;
+			right--;*/
         }
         return maxsize;
     }
