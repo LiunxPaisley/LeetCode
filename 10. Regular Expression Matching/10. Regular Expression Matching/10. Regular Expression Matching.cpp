@@ -14,38 +14,36 @@ using namespace std;
 
 class Solution {
 public:
-    bool isMatch(string s, string p) {
-        int slen = s.size();
-        int plen = p.size();
-        int i    = 0;
-        int j    = 0;
-        char p_last = p[j];
-		while (i < slen&&j < plen)
+    bool isMatch(string s, string p)
+    {
+		if (p.empty())
 		{
-			if (p[j+1] == '*')
-			{
-				while (s[i] == p_last)
-				{
-                    i += 1;
-				}
-                i += 1;
-                j += 1;
-			}
-			if (p[j] == '.')
-			{
-
-			}
-
-               
-		}
-	}
+			return s.empty();
+		}  
+        if (p.size() > 1 && p[1] == '*')
+        {
+            // a* 出现0次
+            bool b1 = isMatch(s, p.substr(2));
+            bool b2 = (!s.empty()) 
+				&& (s[0] == p[0] || p[0] == '.') // a*出现1次
+				&& isMatch(s.substr(1), p); // a*出现多次
+            
+            return (b1 || b2);
+        }
+        else
+        {           
+             return (!s.empty()) 
+				 && (s[0] == p[0] || p[0] == '.')  // 比较当前的字符
+				 && isMatch(s.substr(1), p.substr(1)); // 比较之后的字符串
+        }
+    }
 };
 
 int main()
 {
-    string      s;
-    string      p;
-    Solution    sln;
-    auto        res = sln.isMatch(s, p);
-    cout << "res = " << res << "\n";
+    string   s = "aaa";
+    string   p = "a*a";
+    Solution sln;
+    auto     res = sln.isMatch(s, p);
+    cout << "res = " << (res ? "true" : "false") << "\n";
 }
