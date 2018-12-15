@@ -1,4 +1,3 @@
-/**
 #include <iostream>
 #include <cstdio>
 #include <string>
@@ -6,8 +5,6 @@
 #include <map>
 #include <set>
 #include <algorithm>
-*/
-#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -48,7 +45,7 @@ public:
 
 int main(){
     Solution sln;
-    vector<int> nums{};
+    vector<int> nums{2, 0, -2, -1, -1, 1, 3};
     vector<vector<int>> res = sln.threeSum(nums);
     for(auto& item:res){
         for(auto& elem:item){
