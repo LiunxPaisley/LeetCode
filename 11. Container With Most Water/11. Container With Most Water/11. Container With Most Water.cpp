@@ -36,19 +36,6 @@ public:
 			{
                 left++;
 			}
-           /* int t1 = (right - (left+1)) * min(height[right], height[left+1]);
-			if (t1 > maxsize)
-			{
-                maxsize = t1;
-			}
-			
-            int t2 = (right- 1 - left) * min(height[right-1], height[left]);
-			if (t2 > maxsize)
-			{
-                maxsize = t2;
-			} 
-			left++;
-			right--;*/
         }
         return maxsize;
     }
