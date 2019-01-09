@@ -34,12 +34,27 @@ public:
 		int m = grid.size();
 		int n = grid[0].size();
 		vector<vector<int>> record(m, vector<int>(n, 0));
+		record[0][0] = grid[0][0];
+		for (int i = 1; i < n; ++i) {
+			record[0][i] = record[0][i - 1] + grid[0][i];
+		}
+		for (int i = 1; i < m; ++i) {
+			record[i][0] = record[i - 1][0] + grid[i][0];
+		}
 
-		for (int i = 0; i < m; ++i) {
-			for (int j = 0; j < n; ++j) {
-				
+		for (int i = 1; i < m; ++i) {
+			for (int j = 1; j < n; ++j) {
+				record[i][j] = min(record[i][j - 1], record[i - 1][j]) + grid[i][j];
 			}
 		}
+
+		//for (auto&& x : record) {
+		//	for (auto&& y : x) {
+		//		cout << y << " ";
+		//	}
+		//	cout << endl;
+		//}
+
 		return record[m - 1][n - 1];
 	}
 };
@@ -51,8 +66,8 @@ int main() {
 	int result;
 
 	grid = { {1,3,1},
-	{1,5,1 },
-	{4,2,1} };
+			 {1,5,1 },
+			 {4,2,1} };
 	result = sln.minPathSum(grid);
 	cout << result << endl;
 }
