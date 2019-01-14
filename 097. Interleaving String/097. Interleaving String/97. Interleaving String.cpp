@@ -32,7 +32,37 @@ class Solution {
 public:
 #ifndef ANSWER
 	bool isInterleave(string s1, string s2, string s3) {
+		int len1 = s1.size();
+		int len2 = s2.size();
+		int len3 = s3.size();
 
+		if (len1 + len2 != len3) {
+			return false;
+		}
+
+		vector<vector<bool>> record(len1+1, vector<bool>(len2+1, false));
+		record[0][0] = true;
+		for (int i = 1; i < len1 + 1; ++i) {
+			record[i][0] = record[i - 1][0] && (s1[i - 1] == s3[i - 1]);
+		}
+		for (int i = 1; i < len2 + 1; ++i) {
+			record[0][i] = record[0][i - 1] && (s2[i - 1] == s3[i - 1]);
+		}
+		for (int i = 1; i < len1 + 1; ++i) {
+			for (int j = 1; j < len2 + 1; ++j) {
+				record[i][j] = (record[i - 1][j] && (s1[i - 1] == s3[i + j - 1]))
+					|| (record[i][j - 1] && (s2[j - 1] == s3[i + j - 1]));
+			}
+		}
+
+		//for (auto&& x : record) {
+		//	for (auto&& y : x) {
+		//		cout << y << " ";
+		//	}
+		//	cout << endl;
+		//}
+
+		return record[len1][len2];
 	}
 #else
 	bool isInterleave(string s1, string s2, string s3) {
@@ -68,4 +98,16 @@ public:
 
 int main() {
 	Solution sln;
+	string s1;
+	string s2;
+	string s3;
+	bool result;
+
+	s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac";
+	result = sln.isInterleave(s1, s2, s3);
+	cout << result << endl;
+
+	s1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc";
+	result = sln.isInterleave(s1, s2, s3);
+	cout << result << endl;
 }
