@@ -30,38 +30,52 @@ using namespace std;
 
 class Solution {
 public:
+	/* solution 1 */
 	int minimumTotal(vector<vector<int>>& triangle) {
-		vector<int> vec(triangle[triangle.size() - 1].size(), 0);
-		for (int i = 0; i < vec.size(); ++i) {
-			vec[i] = min_path(triangle, triangle.size() - 1, i);
+		vector<vector<int>> record(triangle.size(), vector<int>());
+		for (int i = 0; i < record.size(); ++i) {
+			record[i].resize(triangle[i].size());
 		}
-		return *min_element(vec.begin(), vec.end());
+		record[0][0] = triangle[0][0];
+		/*min_path(triangle, record, )*/
+		for (int r = 1; r < record.size(); ++r) {
+			for (int c = 0; c < record[r].size(); ++c) {
+				//if (record[r][c] < 0) {
+				if (c == 0) {
+					record[r][c] = triangle[r][c] + record[r - 1][c];
+				} else if (c == record[r - 1].size()) {
+					record[r][c] = triangle[r][c] + record[r - 1][c - 1];
+				} else {
+					record[r][c] = min(triangle[r][c] + record[r-1][c - 1], triangle[r][c] + record[r-1][c]);
+				}
+				
+				//}
+			}
+		}
+		//for (auto&& x : record) {
+		//	for (auto&& y : x) {
+		//		cout << y << " ";
+		//	}
+		//	cout << endl;
+		//}
+		//cout << endl;
+		return *min_element(record[record.size()-1].begin(), record[record.size() - 1].end());
 	}
 private:
-	int min_path(vector<vector<int>>& triangle, int i, int j) {
-		
-		if (i == 0) {
-			int min = 100000000;
-			for (int k = j - 1; k < j + 2; ++k) {
-				if (0 <= k && k < triangle[0].size()) {
-					if (triangle[0][k] < min) {
-						min = triangle[0][k];
-					}
-				}
-			}
-			return min;
-		}
-		vector<int> vec(triangle[i].size(), 0);
-		for (int idx = 0; idx < triangle[i].size(); ++idx) {
-			vec[idx] = triangle[i][idx] + min_path(triangle, i - 1, idx);
-		}
-		cout << "i = " << i << ", ";
-		for (auto&& x : vec) {
-			cout << x << " ";
-		}
-		cout << endl;
-		return *min_element(vec.begin(), vec.end());
-	}
+	//int min_path(int last, vector<vector<int>>& record, int r, int c) {
+	//	int min = 2000000000;
+	//	//int k = 0;
+	//	int r_size = record[r].size();
+	//	for (int i = c; i <= c + 1 && i < r_size; ++i) {
+	//			int res = last + record[r][i]);
+	//			if (res < min) {
+	//				min = res;
+	//				//k = i;
+	//			}
+	//		cout << "r = " << r << ", c = " << c << ", i = " << i  << ", min= " << min << endl;
+	//	}
+	//	return last + record[r][k];
+	//}
 };
 
 
@@ -75,5 +89,13 @@ int main() {
 				{6,5,7},
 				{4,1,8,3} };
 	result = sln.minimumTotal(triangle);
-	cout << result << endl;
+	cout << result << endl << endl;
+
+	triangle = { {-1}, { 3, 2 }, { -3, 1, -1 } };
+	result = sln.minimumTotal(triangle);
+	cout << result << endl << endl;
+
+	triangle = { {-1}, { 3, 2 }, { 1, -2, -1 } };
+	result = sln.minimumTotal(triangle);
+	cout << result << endl << endl;
 }
