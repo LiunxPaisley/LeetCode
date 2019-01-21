@@ -46,8 +46,8 @@ public:
 					break;
 				}
 			}
-			cout << "result = " << result << endl;
-			cout << "i = " << i << endl;
+			//cout << "result = " << result << endl;
+			//cout << "i = " << i << endl;
 			// find max one
 			if (!flag) {
 				vector<int>::iterator iter = max_element(height.begin()+(i+1), height.end());
@@ -55,13 +55,12 @@ public:
 					break;
 				}
 				j = iter - height.begin();
-				cout << "j = " << j << endl;
+				//cout << "j = " << j << endl;
 				result += (j - i - 1)*height[j];
 			}
-			++i;
-			while (i != j && i < height_size) {
+			// minus the block
+			while (++i != j) {
 				result -= height[i];
-				++i;
 			}
 		}
 		return result;
