@@ -30,26 +30,34 @@ using namespace std;
 
 class Solution {
 public:
+	//int jump(vector<int>& nums) {
+	//	int nums_size = nums.size();
+	//	//vector<vector<int>> dis(nums_size, vector<int>(nums_size, 0));
+	//	vector<int> dis(nums_size, 10000000);
+	//	dis[0] = 0;
+	//	for (int i = 0; i < nums_size; ++i) {
+	//		for (int j = i + 1; j < nums_size && j <= i + nums[i]; ++j) {
+	//			dis[j] = (dis[j] > dis[i] + 1) ? dis[i] + 1 : dis[j];
+	//		}
+	//	}
+
+	//	//for (auto&& x : dis) {
+	//	//	cout << x << " ";
+	//	//}
+	//	//cout << endl;
+
+	//	return dis.back();
+	//}
 	int jump(vector<int>& nums) {
-		int nums_size = nums.size();
-		//vector<vector<int>> dis(nums_size, vector<int>(nums_size, 0));
-		vector<int> dis(nums_size, 10000000);
-		dis[0] = 0;
-		for (int i = 0; i < nums_size; ++i) {
-			int range = nums[i];
-			for (int j = 1; j <= range; ++j) {
-				if (i + j < nums_size) {
-					dis[i + j] = (dis[i + j] > dis[i] + 1) ? dis[i] + 1 : dis[i + j];
-				}
+		int reach = 0, maxReach = 0, res = 0;
+		for (int i = 0; i < nums.size(); ++i) {
+			if (reach < i) {
+				reach = maxReach;
+				++res;
 			}
+			maxReach = max(maxReach, i + nums[i]);
 		}
-
-		//for (auto&& x : dis) {
-		//	cout << x << " ";
-		//}
-		//cout << endl;
-
-		return dis.back();
+		return res;
 	}
 };
 
