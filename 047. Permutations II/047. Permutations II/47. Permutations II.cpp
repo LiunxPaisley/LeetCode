@@ -40,14 +40,15 @@ private:
 	void permuteUnique(vector<int>& nums, vector<vector<int>>& result, int k) {
 		if (k == nums.size()) {
 			result.push_back(nums);
+			return;
 		}
 		for (int i = k; i < nums.size(); ++i) {
+			int j = i - 1;
+			while (j >= k && nums[j] != nums[i]) --j;
+			if (j != k - 1) continue;
 			swap(nums[i], nums[k]);
 			permuteUnique(nums, result, k + 1);
 			swap(nums[i], nums[k]);
-			while (i + 1 < nums.size() && nums[i] == nums[i + 1]) {
-				++i;
-			}
 		}
 	}
 };
@@ -78,7 +79,7 @@ int main() {
 	}
 	cout << "\n";
 
-	/*nums = { 1,2,3,3,3,4,4,5 };
+	nums = { 0,1,0,0,9 };
 	result = sln.permuteUnique(nums);
 	for (auto&& x : result) {
 		for (auto&& y : x) {
@@ -86,5 +87,28 @@ int main() {
 		}
 		cout << "\n";
 	}
-	cout << "\n";*/
+	cout << "\n";
+
+	nums = { 2,2,1,1 };
+	result = sln.permuteUnique(nums);
+	for (auto&& x : result) {
+		for (auto&& y : x) {
+			cout << y << " ";
+		}
+		cout << "\n";
+	}
+	cout << "\n";
+
+	
+	nums = { -1, 2, -1, 2, 1, -1, 2, 1 };
+	result = sln.permuteUnique(nums);
+	for (auto&& x : result) {
+		for (auto&& y : x) {
+			cout << y << " ";
+		}
+		cout << "\n";
+	}
+	cout << "\n";
+
+	
 }
