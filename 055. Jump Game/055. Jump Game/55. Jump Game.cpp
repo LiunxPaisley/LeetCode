@@ -34,25 +34,26 @@ public:
 	bool canJump(vector<int>& nums) {
 		int n = nums.size();
 		if (n <= 1) return true;
-		vector<bool> rec(n, false);
-		rec[0] = true;
+		vector<int> rec(n, 0);
+		rec[0] = 1;
 		for (int i = 0; i < n; ++i) {
-			if (rec[i] == true) {
+			if (rec[i] == 1) {
 				if (i + nums[i] >= n - 1) {
 					return true;
 				}
-				for (int j = 1; i+j < n && j <= nums[i]; ++j) {
-					if (rec[i + j] == false) {
-						rec[i + j] = true;
+				for (int j = 1; i + j < n && j <= nums[i]; ++j) {
+
+					if (rec[i + j] == 0) {
+						rec[i + j] = 1;
 					}
 				}
 			}
 		}
 
-		/*for (auto&& x : rec) {
-			cout << x << " ";
-		}
-		cout << "\n";*/
+		// for (auto&& x : rec) {
+		// 	cout << x << " ";
+		// }
+		// cout << "\n";
 
 		return rec.back();
 	}
