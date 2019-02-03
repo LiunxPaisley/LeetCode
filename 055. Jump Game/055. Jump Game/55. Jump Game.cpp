@@ -37,9 +37,14 @@ public:
 		vector<bool> rec(n, false);
 		rec[0] = true;
 		for (int i = 0; i < n; ++i) {
-			for (int j = 1; j <= nums[i] && i+j < n; ++j) {
-				if (rec[i] == true && rec[i + j] == false) {
-					rec[i + j] = true;
+			if (rec[i] == true) {
+				if (i + nums[i] >= n - 1) {
+					return true;
+				}
+				for (int j = 1; i+j < n && j <= nums[i]; ++j) {
+					if (rec[i + j] == false) {
+						rec[i + j] = true;
+					}
 				}
 			}
 		}
