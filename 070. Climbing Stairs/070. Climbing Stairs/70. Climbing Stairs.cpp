@@ -32,23 +32,16 @@ using namespace std;
 class Solution {
 public:
 	int climbStairs(int n) {
-		vector<int> record(n + 1, 0);
-		return climb(0, record, n);
-	}
-private:
-	
-	int climb(int i, vector<int>& record, int n) {
-		if (i > n) {
-			return 0;
-		}
-		if (i == n) {
+		if (n == 1) {
 			return 1;
 		}
-		if (record[i] > 0) {
-			return record[i];
+		vector<int> dp(n + 1, 0);
+		dp[1] = 1;
+		dp[2] = 2;
+		for (int i = 3; i <= n; i++) {
+			dp[i] = dp[i - 1] + dp[i - 2];
 		}
-		record[i] = climb(i + 1, record, n) + climb(i + 2, record, n);
-		return record[i];
+		return dp[n];
 	}
 };
 
