@@ -63,7 +63,15 @@ int main() {
 	Solution sln;
 	int n = 0;
 	int k = 0;
+	vector<vector<int>> result;
 
 	n = 4;
-	
+	k = 2;
+	result = sln.combine(n, k);
+	for (auto&& x : result) {
+		for (auto&& y : x) {
+			cout << y << " ";
+		}
+		cout << "\n";
+	}
 }
