@@ -39,6 +39,7 @@ public:
 		}
 		for (int i = 0; i < n - k + 1; ++i) {
 			vector<int> temp;
+			temp.reserve(k);
 			temp.push_back(nums[i]);
 			combine(result, nums, temp, n, k - 1, i + 1);
 		}
