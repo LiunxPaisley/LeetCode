@@ -32,57 +32,41 @@ using namespace std;
 class Solution {
 public:
 	bool exist(vector<vector<char>>& board, string word) {
-		if (board.empty()) return false;
+		if (board.empty() || word.empty()) return false;
 		if (word.empty()) return false;
 		int row = board.size();
 		int col = board[0].size();
 		for (int i = 0; i < row; ++i) {
 			for (int j = 0; j < col; ++j) {
-				if (board[i][j] == word[0]) {
-					bool b = exist(board, word, 1, i, j + 1, 0) ||
-						exist(board, word, 1, i + 1, j, 1) ||
-						exist(board, word, 1, i, j - 1, 2) ||
-						exist(board, word, 1, i - 1, j, 3);
-					if (b) {
-						return b;
-					}
+				if (dfs(board, word, i, j, 0)) {
+					return true;
 				}
 			}
 		}
 		return false;
 	}
 private:
-	bool exist(vector<vector<char>>& board, string& word, int n, int i, int j, int d) {
-		if (0 <= i && i < board.size() && 0 <= j && j < board[0].size()) {
-
-			if (board[i][j] == word[n]) {
-				if (n == word.size() - 1) {
-					return true;
-				}
-				switch (d) {
-				case 0:return exist(board, word, n + 1, i, j + 1, 0) ||
-					exist(board, word, n + 1, i + 1, j, 1) ||
-					exist(board, word, n + 1, i - 1, j, 3);
-					break;
-				case 1:return exist(board, word, n + 1, i, j + 1, 0) ||
-					exist(board, word, n + 1, i + 1, j, 1) ||
-					exist(board, word, n + 1, i, j - 1, 2);
-					break;
-				case 2:return exist(board, word, n + 1, i + 1, j, 1) ||
-					exist(board, word, n + 1, i, j - 1, 2) ||
-					exist(board, word, n + 1, i - 1, j, 3);
-					break;
-				case 3:return exist(board, word, n + 1, i, j + 1, 0) ||
-					exist(board, word, n + 1, i, j - 1, 2) ||
-					exist(board, word, n + 1, i - 1, j, 3);
-					break;
-				default:
-					break;
-				}
-
-			}
+	bool dfs(vector<vector<char>>& board, string& word, int i, int j, int pos) {
+		if (pos == word.size()) {
+			return true;
 		}
-		return false;
+		if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size()) {
+			return false;
+		}
+		if (board[i][j] == '#') {
+			return false;
+		}
+		if (board[i][j] != word[pos]) {
+			return false;
+		}
+		char tmp = board[i][j];
+		board[i][j] = '#';
+		bool result = dfs(board, word, i + 1, j, pos + 1) ||
+			dfs(board, word, i, j + 1, pos + 1) ||
+			dfs(board, word, i - 1, j, pos + 1) ||
+			dfs(board, word, i, j - 1, pos + 1);
+		board[i][j] = tmp;
+		return result;
 	}
 };
 
