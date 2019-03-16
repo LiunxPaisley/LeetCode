@@ -43,12 +43,9 @@ public:
 				--right;
 			}
 			int mid = left + (right - left) / 2;
-			if (target == nums[mid] /*|| 
-				target == nums[right] || 
-				target == nums[left]*/) {
+			if (target == nums[mid]) {
 				return true;
 			}
-
 			if (nums[mid] < nums[right]) {
 				if (nums[mid] < target && target <= nums[right]) {
 					left = mid + 1;
