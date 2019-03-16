@@ -60,7 +60,6 @@ public:
 				j++;
 				count = 1;
 			}
-
 		}
 		return i;
 	}
