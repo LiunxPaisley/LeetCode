@@ -42,24 +42,24 @@ class Solution {
 public:
 	ListNode* deleteDuplicates(ListNode* head) {
 		if (head == NULL) return head;
-		if (head->next == NULL) return head;
-		if (head->next->next == NULL) {
-			if (head->next->val == head->val) {
-				return NULL;
-			} else {
-				return head;
-			}
-		}
+		//if (head->next == NULL) return head;
+		//if (head->next->next == NULL) {
+		//	if (head->next->val == head->val) {
+		//		return NULL;
+		//	} else {
+		//		return head;
+		//	}
+		//}
 		ListNode** cur = &(head->next);
 		ListNode** prev = &head;
 		//ListNode** prevprev = prev;
-		while (*cur != NULL) {
+		while (*cur) {
 			if ((*cur)->val != (*prev)->val) {
 				//prevprev = prev;
 				prev = cur;
 				cur = &((*cur)->next);
 			} else {
-				while (*cur != NULL && (*cur)->val == (*prev)->val) {
+				while (*cur && (*cur)->val == (*prev)->val) {
 					cur = &((*cur)->next);
 				}
 				//if (*prev == head) {
@@ -72,7 +72,7 @@ public:
 				//cur = &((*prev)->next);
 				*prev = *cur;
 				//prev = cur;
-				if (*cur != NULL) {
+				if (*cur) {
 					cur = &((*cur)->next);
 				}
 			}
