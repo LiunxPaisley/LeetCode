@@ -32,34 +32,20 @@ using namespace std;
 class Solution {
 public:
 	int largestRectangleArea(vector<int>& heights) {
-		int height = 0;
-		int width = 0;
-		int max = 0;
-		vector<int> largest(heights.size(), 0);
-		for (int i = 0; i < heights.size(); ++i) {
-			height = heights[i];
-			if (i > 0 && heights[i] <= heights[i - 1]) {
-				continue;
-			}
-			for (int j = i; j < heights.size(); ++j) {
-				width = j - i + 1;
-				if (height > heights[j]) {
-					height = heights[j];
-				}
-				int area = width * height;
-				if (largest[i] < area) {
-					largest[i] = area;
-				}
-			}
-			if (largest[i] > max) {
-				max = largest[i];
+		stack<int> stk;
+		heights.push_back(0);
+		int sum = 0;
+		for (int i = 0; i < heights.size(); i++) {
+			if (stk.empty() || heights[i] > heights[stk.top()]) {
+				stk.push(i);
+			} else {
+				int tmp = stk.top();
+				stk.pop();
+				sum = max(sum, heights[tmp] * (stk.empty() ? i : i - stk.top() - 1));
+				i--;
 			}
 		}
-		//for (auto&& x : largest) {
-		//	cout << x << " ";
-		//}
-		//cout << "\n";
-		return max;
+		return sum;
 	}
 };
 
