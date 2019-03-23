@@ -32,59 +32,22 @@ using namespace std;
 class Solution {
 public:
 	int search(vector<int>& nums, int target) {
-		int nums_size = nums.size();
-		if (nums_size == 0) {
-			return -1;
-		}
-		if (nums_size == 1) {
-			if (target == nums[0]) {
-				return 0;
+		int left = 0, right = nums.size() - 1;
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
+			if (nums[mid] == target) {
+				return mid;
+			} else if (nums[mid] < nums[right]) {
+				if (nums[mid] < target && nums[right] >= target) {
+                    left = mid + 1;
+				} else {
+					right = mid - 1;
+				}
 			} else {
-				return -1;
-			}
-		}
-		int i = 0;
-		int j = nums_size - 1;
-		
-		while(i <= j){
-			int m = (i+j)/2;
-			if (target == nums[m]) {
-				return m;
-			} else if (nums[i] <= nums[m] && nums[m] <= nums[j]) {
-				if (target < nums[m]) {
-					j = m - 1;
+				if (nums[left] <= target && nums[mid] > target) {
+					right = mid - 1;
 				} else {
-					i = m + 1;
-				}
-			} else if (nums[j] <= nums[i] && nums[i] <= nums[m]) {
-				if (target == nums[i]) {
-					return i;
-				}
-				if (target < nums[i]) {
-					while (nums[i + 1] > nums[i]) {
-						i++;
-					}
-					i++;
-				} else {
-					while (nums[j - 1] < nums[j]) {
-						j--;
-					}
-					j--;
-				}
-			} else if (nums[m] <= nums[j] && nums[j] <= nums[i]) {
-				if (target == nums[j]) {
-					return j;
-				}
-				if (target < nums[j]) {
-					while (nums[i + 1] > nums[i]) {
-						i++;
-					}
-					i++;
-				} else {
-					while (nums[j - 1] < nums[j]) {
-						j--;
-					}
-					j--;
+					left = mid + 1;
 				}
 			}
 		}
@@ -95,11 +58,21 @@ public:
 
 int main() {
 	Solution sln;
-	vector<int> nums{ 4,5,6,7,0,1,2 };
-	int target = 1;
-	int result = sln.search(nums, target);
+	vector<int> nums;
+	int target = 0;
+	int result = 0;
+
+	nums = { 4, 5, 6, 7, 0, 1, 2 };
+	target = 0;
+	result = sln.search(nums, target);
 	cout << result << endl;
 
+	nums = { 4, 5, 6, 7, 0, 1, 2 };
+	target = 3;
+	result = sln.search(nums, target);
+	cout << result << endl;
+
+	nums = { 3, 1, 1 };
 	target = 3;
 	result = sln.search(nums, target);
 	cout << result << endl;
