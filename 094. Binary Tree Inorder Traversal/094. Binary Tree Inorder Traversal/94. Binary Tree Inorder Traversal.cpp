@@ -61,33 +61,17 @@ void print_tree(TreeNode* root) {
 class Solution {
 public:
 	vector<int> inorderTraversal(TreeNode* root) {
-		if (!root) return {};
-		stack<TreeNode*> stk;
 		vector<int> res;
-		stk.push(root);
-		while (!stk.empty()) {
-			TreeNode* tmp = stk.top();
-			if (tmp->left) {
-				stk.push(tmp->left);
-			} else {
-				res.push_back(tmp->val);
-				stk.pop();
-				//if (stk.empty()) {
-				//	break;
-				//}
-				if (tmp->right) {
-					stk.push(tmp->right);
-				} else {
-					if (stk.empty()) {
-						break;
-					}
-					TreeNode* mid = stk.top();
-					res.push_back(mid->val);
-					stk.pop();
-				}
-			}
-		}
+		_inorder(root, res);
 		return res;
+	}
+private:
+	void _inorder(TreeNode*root, vector<int>& res) {
+		if (root) {
+			_inorder(root->left, res);
+			res.push_back(root->val);
+			_inorder(root->right, res);
+		}
 	}
 };
 
