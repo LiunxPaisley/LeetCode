@@ -32,24 +32,15 @@ using namespace std;
 class Solution {
 public:
 	int numDecodings(string s) {
-		return _numDecodings(s, 0);
-	}
-private:
-	int _numDecodings(string& s, int idx) {
-		if (s[idx] == '0') return 0;
-		if (idx == s.size() - 1) return 1;
-		if (idx == s.size()) return 1;
+		if (s[0] == '0') return 0;
+		vector<int> rec(s.size());
+		rec[0] = 1;
+		for (int i = 1; i < s.size(); ++i) {
 
-		int a = _numDecodings(s, idx + 1);
-		int b = 10 * (s[idx] - '0') + (s[idx + 1] - '0');
-		if (b <= 26) {
-			b = _numDecodings(s, idx + 2);
-		} else {
-			b = 0;
 		}
-		return a + b;
-
+		return rec.back();
 	}
+
 };
 
 
