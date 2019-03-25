@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>ListNode</Title>
+            <shortcut>#listnode</shortcut>
+            <Author>LiunxPaisley</Author>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Code Language="cpp">
+                <![CDATA[/**
+ * Definition for singly-linked list.
+ */
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+ListNode* generate_list(vector<int>& nums){
+    ListNode* head;
+    ListNode** ptr = &head;
+    for(auto&& x : nums){
+        *ptr = new ListNode(x);
+        ptr = &((*ptr)->next);
+    }
+    return head;
+}
+
+void print_list(ListNode* p){
+    while(p){
+        cout << p->val << " ";
+        p = p->next;
+    }
+    cout << endl;
+}
+]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
