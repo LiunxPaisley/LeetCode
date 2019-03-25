@@ -85,17 +85,14 @@ private:
 			if (!inorder(root->left, max)) {
 				return false;
 			}
-			//cout << max << " " << root->val << "\n";
 			if (max > root->val) {
 				return false;
 			} else {
 				max = root->val;
 			}
-			
 			if (!inorder(root->right, max)) {
 				return false;
 			}
-			
 		}
 		return true;
 	}
