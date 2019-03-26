@@ -77,6 +77,27 @@ class Solution {
 public:
 	int maxDepth(TreeNode* root) {
 		if (!root) return 0;
+		queue<TreeNode*> que;
+		que.push(root);
+		int depth = 0;
+		while (!que.empty()) {
+			++depth;
+			int curLevelNodesTotal = que.size();
+			int cnt = 0;
+			while (cnt < curLevelNodesTotal) {
+				++cnt;
+				root = que.front();
+				que.pop();
+				if (root->left)
+					que.push(root->left);
+				if (root->right)
+					que.push(root->right);
+			}
+		}
+		return depth;
+	}
+	int maxDepth1(TreeNode* root) {
+		if (!root) return 0;
 		return 1 + max(maxDepth(root->left), maxDepth(root->right));
 	}
 };
