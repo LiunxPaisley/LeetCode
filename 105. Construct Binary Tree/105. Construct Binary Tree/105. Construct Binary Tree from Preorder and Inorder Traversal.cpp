@@ -76,25 +76,18 @@ void print_tree(TreeNode* root) {
 class Solution {
 public:
 	TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-		TreeNode* root;
-		generate(&root, preorder, inorder);
-		return root;
+		return buildTree(preorder, 0, preorder.size() - 1, inorder, 0, inorder.size() - 1);
 	}
-private:
-	void generate(TreeNode** root, vector<int> preorder, vector<int> inorder) {
-		if (preorder.empty()) return;
-		/*cout << "preorder: ";
-		for (auto&& x : preorder) { cout << x << " "; }
-		cout << "\n";
-		cout << "inorder: ";
-		for (auto&& x : inorder) { cout << x << " "; }
-		cout << "\n";*/
-		*root = new TreeNode(preorder[0]);
-		vector<int>::iterator iter = find(inorder.begin(), inorder.end(), preorder[0]);
-		int len = std::distance(inorder.begin(), iter);
-		//cout << "len : " << len << endl;
-		generate(&((*root)->left), vector<int>(preorder.begin() + 1, preorder.begin() + len + 1), vector<int>(inorder.begin(), iter));
-		generate(&((*root)->right), vector<int>(preorder.begin() + len + 1, preorder.end()), vector<int>(iter + 1, inorder.end()));
+	TreeNode *buildTree(vector<int> &preorder, int pLeft, int pRight, vector<int> &inorder, int iLeft, int iRight) {
+		if (pLeft > pRight || iLeft > iRight) return NULL;
+		int i = 0;
+		for (i = iLeft; i <= iRight; ++i) {
+			if (preorder[pLeft] == inorder[i]) break;
+		}
+		TreeNode *cur = new TreeNode(preorder[pLeft]);
+		cur->left = buildTree(preorder, pLeft + 1, pLeft + i - iLeft, inorder, iLeft, i - 1);
+		cur->right = buildTree(preorder, pLeft + i - iLeft + 1, pRight, inorder, i + 1, iRight);
+		return cur;
 	}
 };
 
