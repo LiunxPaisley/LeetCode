@@ -78,20 +78,23 @@ public:
 	vector<vector<int>> pathSum(TreeNode* root, int sum) {
 		if (!root) return {};
 		vector<vector<int>> res;
-		get_path(res, {}, root, sum);
+		vector<int> tmp;
+		get_path(res, tmp, root, sum);
 		return res;
 	}
 private:
-	void get_path(vector<vector<int>>& res, vector<int> tmp, TreeNode* root, int sum) {
+	void get_path(vector<vector<int>>& res, vector<int>& tmp, TreeNode* root, int sum) {
 		if (!root) return;
 		int newsum = sum - root->val;
 		tmp.push_back(root->val);
 		if (!newsum && !(root->left) && !(root->right)) {
 			res.push_back(tmp);
+			tmp.pop_back();
 			return;
 		}
 		get_path(res, tmp, root->left, newsum);
 		get_path(res, tmp, root->right, newsum);
+		tmp.pop_back();
 	}
 };
 
