@@ -32,13 +32,11 @@ using namespace std;
 class Solution {
 public:
 	int singleNumber(vector<int>& nums) {
-		map<int, int> ht;
-		for (int i = 0; i < nums.size(); ++i) {
-			ht[nums[i]]++;
+		int res = nums[0];
+		for (int i = 1; i < nums.size(); ++i) {
+			res = res ^ nums[i];
 		}
-		auto iter = ht.begin();
-		for (; iter != ht.end() && iter->second != 1; ++iter);
-		return iter->first;
+		return res;
 	}
 };
 
@@ -48,5 +46,8 @@ int main() {
 	vector<int> nums;
 
 	nums = { 4,1,2,1,2 };
+	cout << sln.singleNumber(nums) << endl;
+
+	nums = { 4,1,2,1,2,3,5,5,3,7,9,8,9,7,8 };
 	cout << sln.singleNumber(nums) << endl;
 }
