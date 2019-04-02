@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{4C8BBCA5-FF6A-4F38-A828-9CAEC173E293}</ProjectGuid>
+    <ProjectGuid>{DE3662B9-42DE-4AA8-9E2B-0E8CDAFF5FDC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My260SingleNumberIII</RootNamespace>
+    <RootNamespace>My134GasStation</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="260. Single Number III.cpp" />
+    <ClCompile Include="134. Gas Station.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
