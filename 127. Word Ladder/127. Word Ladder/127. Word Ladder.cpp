@@ -33,11 +33,44 @@ using namespace std;
 class Solution {
 public:
 	int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+		unordered_set<string> word_set(wordList.begin(), wordList.end());
 
+		if (!word_set.count(endWord)) return 0;
+
+		unordered_map<string, int> path_cnt{ {{beginWord, 1}} };
+		queue<string> que;
+		que.push(beginWord);
+		while (!que.empty()) {
+			string word = que.front();
+			que.pop();
+			for (int i = 0; i < word.size(); ++i) {
+				for (char ch = 'a'; ch <= 'z'; ++ch) {
+					string newword = word;
+					newword[i] = ch;
+					if (word_set.count(newword)) {
+						if (newword == endWord) {
+							return path_cnt[word] + 1;
+						} else if (!path_cnt.count(newword)) {
+							path_cnt[newword] = path_cnt[word] + 1;
+							que.push(newword);
+						}
+					}
+				}
+			}
+		}
+		return 0;
 	}
 };
 
 
 int main() {
 	Solution sln;
+	string beginWord;
+	string endWord;
+	vector<string> wordList;
+
+	beginWord = "hit";
+	endWord = "cog";
+	wordList = { "hot","dot","dog","lot","log","cog" };
+	cout << sln.ladderLength(beginWord, endWord, wordList) << endl;
 }
