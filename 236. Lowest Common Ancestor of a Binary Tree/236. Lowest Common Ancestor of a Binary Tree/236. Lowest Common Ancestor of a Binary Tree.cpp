@@ -84,30 +84,38 @@ public:
         vector<TreeNode*> path1, path2;
         dfs(root, p, path1);
         dfs(root, q, path2);
-        TreeNode* ans;
-        for (int i = 0; i < path1.size() && i < path2.size() && path1[i] == path2[i]; i++)
-            ans = path1[i];
-        return ans;
+        TreeNode* res = NULL;
+        for (int i = 0; i < path1.size() && i < path2.size() && path1[i] == path2[i]; ++i) {
+            res = path1[i];
+        }
+        return res;
     }
-    bool dfs(TreeNode* root, TreeNode* t, vector<TreeNode*>& vec) {
-        if (root == nullptr)
+private:
+    bool dfs(TreeNode* root, TreeNode* target, vector<TreeNode*>& path) {
+        if (!root) {
             return false;
-        vec.push_back(root);
-        if (root == t)
+        }
+        path.push_back(root);
+        if (root == target) {
             return true;
+        }
         if (root->left) {
-            if (dfs(root->left, t, vec))
+            if (dfs(root->left, target, path)) {
                 return true;
-            vec.pop_back();
+            } else {
+                path.pop_back();
+            }
         }
         if (root->right) {
-            if (dfs(root->right, t, vec))
+            if (dfs(root->right, target, path)) {
                 return true;
-            vec.pop_back();
+            } else {
+                path.pop_back();
+            }
         }
         return false;
     }
-    
+public:    
     /**
      * Runtime: 152 ms, faster than 5.72% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
      * Memory Usage: 16.9 MB, less than 26.28% of C++ online submissions for Lowest Common Ancestor of a Binary Tree.
