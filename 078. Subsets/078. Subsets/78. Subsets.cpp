@@ -31,7 +31,28 @@ using namespace std;
 
 class Solution {
 public:
-	vector<vector<int>> subsets(vector<int>& nums) {
+    /**
+     * Runtime: 8 ms, faster than 100.00% of C++ online submissions for Subsets.
+     * Memory Usage: 9.3 MB, less than 34.75% of C++ online submissions for Subsets.
+     */
+    vector<vector<int>> subsets(vector<int>& nums) {
+        if (nums.empty()) return {};
+        int n = nums.size();
+        vector<vector<int>> res;
+        res.reserve(pow(2, n));
+        res.push_back({});
+        for (int i = 0; i < n; ++i) {
+            int m = res.size();
+            for (int j = 0; j < m; ++j) {
+                vector<int> tmp = res[j];
+                tmp.push_back(nums[i]);
+                res.push_back(tmp);
+            }
+        }
+        return res;
+    }
+public:
+	vector<vector<int>> subsets1(vector<int>& nums) {
 		vector<vector<int>> result;
 		result.reserve(pow(2, nums.size()));
 		subsets(result, nums, {}, 0);
