@@ -34,6 +34,23 @@ class Solution {
 public:
     /**
      * Runtime: 8 ms, faster than 69.95% of C++ online submissions for Best Time to Buy and Sell Stock with Cooldown.
+     * Memory Usage: 8.8 MB, less than 98.37% of C++ online submissions for Best Time to Buy and Sell Stock with Cooldown.
+     */
+    int maxProfit(vector<int>& prices) {
+        int sell = 0;
+        int prev_sell = 0;
+        int buy = INT_MIN;
+        int prev_buy = 0;
+        for (int i = 0; i < prices.size(); ++i) {
+            prev_buy = buy;
+            buy = max(prev_sell - prices[i], prev_buy);
+            prev_sell = sell;
+            sell = max(prev_buy + prices[i], prev_sell);
+        }
+        return sell;
+    }
+    /**
+     * Runtime: 8 ms, faster than 69.95% of C++ online submissions for Best Time to Buy and Sell Stock with Cooldown.
      * Memory Usage: 8.9 MB, less than 98.37% of C++ online submissions for Best Time to Buy and Sell Stock with Cooldown.
      */
     int maxProfit(vector<int>& prices) {
