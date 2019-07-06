@@ -76,7 +76,22 @@ void print_tree(TreeNode* root) {
 
 class Solution {
 public:
-	void flatten(TreeNode* root) {
+    /**
+     * Runtime: 4 ms, faster than 95.95% of C++ online submissions for Flatten Binary Tree to Linked List.
+     * Memory Usage: 9.7 MB, less than 70.29% of C++ online submissions for Flatten Binary Tree to Linked List.
+     */
+    void flatten(TreeNode* root) {
+        if (!root) return;
+        flatten(root->left);
+        flatten(root->right);
+        TreeNode* tmp = root->right;
+        root->right = root->left;
+        root->left = NULL;
+        while (root->right) root = root->right;
+        root->right = tmp;
+    }
+
+	void flatten1(TreeNode* root) {
 		if (root) {
 			queue<TreeNode*> que;
 			_flatten(root, que);
